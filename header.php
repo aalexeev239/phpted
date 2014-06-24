@@ -33,6 +33,14 @@
               title => 'Strings',
             ],
             [
+              url => 'page-cookies.php',
+              title => 'Cookies',
+            ],
+            [
+              url => 'page-sessions.php',
+              title => 'Sessions',
+            ],
+            [
               url => 'page-markup.php',
               title => 'markup-template',
             ],
