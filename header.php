@@ -16,6 +16,9 @@
     <div id="menu">
       <ul>
         <?php 
+
+          mb_internal_encoding('utf-8');
+
           $pages = [
             [
               url => 'index.php',

@@ -36,22 +36,26 @@
           <h4><span class="icon icon-pencil"></span>Функция, приводящая каждый второй символ к верхнему регистру</h4>
           <p>
             <?php 
-              $str2 = $convertedText = mb_convert_encoding($string, 'utf-8', mb_detect_encoding($string));;
+              // $str2 = mb_convert_encoding($string, 'utf-8', mb_detect_encoding($string));;
+              $str2 = $string;
+
               function toUpper ($str) {
                 $wordpos = 0;
-                $copy = ' ';
+                $copy = '';
                 for ($char = 0; $char < mb_strlen($str,'utf-8'); $char++ ) {
-                  if ($str[$char] == ' ') {
+                  $substr = mb_substr($str,$char,1,"UTF-8");
+
+                  if ($substr == ' ') {
                     $wordpos = 0;
-                    $copy[$char] = ' ';
+                    $copy = $copy.' ';
                   } elseif ($wordpos % 2 == 1) {
                     // mb_substr($str,$char,1,"UTF-8")
                     // $str[$char] = mb_strtoupper($str[$char], 'utf-8');
                     // $str[$char] = mb_strtoupper(mb_substr($str,$char,1,'UTF-8'), 'utf-8');
-                    $copy[$char] = mb_substr($str,$char,1,"UTF-8");
+                    $copy = $copy.mb_strtoupper($substr);
                     $wordpos++;
                   } else {
-                    $copy[$char] = mb_substr($str,$char,1,"UTF-8");
+                    $copy = $copy.$substr;
                     $wordpos++;
                   }
                 }
