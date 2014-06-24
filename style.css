@@ -66,7 +66,11 @@
 		form
 		{
 		}
-		
+			.form-group {
+				width: 100%;
+			}
+
+
 			form label
 			{
 				display: block;
@@ -76,14 +80,29 @@
 			
 			form .submit
 			{
-				margin-top: 2em;
-				background: #8DCB89;
+				margin-top: 1em;
+				background: #ff6816;
 				border-radius: 8px;
-				line-height: 1.5em;
+				line-height: 2em;
 				font-size: 1.3em;
+				padding: 0 2em;
+				outline: none;
+				border: none;
+				-webkit-transition: all .2s;
+				transition: all .2s;
+			}
+
+			form .submit:hover {
+				color: #fff;
+			}
+
+			form .submit:active {
+				-webkit-box-shadow: inset 0px 0px 0px 0px rgba(255, 255, 255, 0.7);
+				box-shadow: inset 0px 0px 0px 0px rgba(255, 255, 255, 0.7);
 			}
 		
 			form input.text,
+			form input.form-control,
 			form select,
 			form textarea
 			{
@@ -93,7 +112,10 @@
 				border: 0;
 				background: #fff;
 				background: rgba(255,255,255,0.75);
-				width: 90%;
+				width: 100%;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
 				border-radius: 0.50em;
 				margin: 1em 0em;
 				padding: 1em 1em;
@@ -650,7 +672,7 @@
 	#featured
 	{
 		overflow: hidden;
-		padding: 8em 0em;
+		padding: 4em 0em;
 	}
 	
 	#featured .box1,
@@ -685,6 +707,19 @@
 	{
 		padding-right: 0.50em;
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 @charset 'UTF-8';
 
