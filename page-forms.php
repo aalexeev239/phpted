@@ -5,7 +5,7 @@
 <section id="wrapper2">
   <div id="featured" class="container">
     <div class="box1">
-      <h2><span class="icon icon-table"></span>Простая форма</h2>
+      <h2><span class="icon icon-table"></span>Простая Get-форма</h2>
       <form action="page-forms.php">
         <p class="form-group">
           <label for="field1">Введите что-нибудь:</label>

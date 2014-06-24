@@ -96,7 +96,7 @@
 			}
 
 			form .submit:active {
-				box-shadow: inset 0px 0px 0px 0px rgba(255, 255, 255, 0.7);
+				box-shadow: inset 0px 0px 10px 0px rgba(255, 255, 255, 0.7);
 			}
 		
 			form input.text,
@@ -276,8 +276,8 @@
 	.button
 	{
 		display: inline-block;
-		margin-top: 2em;
-		padding: 1em 2em 1em 2em;
+		margin-top: 0.5em;
+		padding: 0.75em 1.25em;
 		background: #ff6816;
 		border-radius: 8px;
 		letter-spacing: 0.20em;
@@ -287,6 +287,15 @@
 		font-weight: 400;
 		font-size: 1.2em;
 		color: #FFF;
+		transition: all .2s;
+	}
+
+	.button:hover {
+		color: #fff;
+	}
+
+	.button:active {
+		box-shadow: inset 0px 0px 10px 0px rgba(255, 255, 255, 0.7);
 	}
 	
 	.button:before
@@ -498,6 +507,11 @@
 	#welcome strong
 	{
 		color: rgba(0,0,0,0.8);
+	}
+
+	#welcome a:hover {
+		color: #fff;
+		box-shadow: inset 0px 0px 10px 0px rgba(255, 255, 255, 0.7);
 	}
 
 /*********************************************************************************/

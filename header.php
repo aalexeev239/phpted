@@ -29,6 +29,10 @@
               url => 'page-strings.php',
               title => 'Strings',
             ],
+            [
+              url => 'page-markup.php',
+              title => 'Верстка',
+            ],
           ];
 
           $cur_page_name = basename($_SERVER['PHP_SELF']);
