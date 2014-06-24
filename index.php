@@ -9,6 +9,8 @@
     <div class="content">
       <p>Post-запрос для формы</p>
       <a href="page-forms.php" class="button">Смотреть</a></div>
+      <p>Ад со строками</p>
+      <a href="page-strings.php" class="button">Смотреть</a></div>
   </div>
 </div>
 <?php 
