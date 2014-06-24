@@ -31,7 +31,7 @@
             ],
             [
               url => 'page-markup.php',
-              title => 'Верстка',
+              title => 'markup-template',
             ],
           ];
 
