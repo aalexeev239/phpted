@@ -15,15 +15,40 @@
   <div id="header" class="container">
     <div id="menu">
       <ul>
-        <li class="current_page_item"><a href="#" accesskey="1" title="">Mainpage</a></li>
-        <li><a href="#" accesskey="212" title="">Our Clients</a></li>
-        <li><a href="#" accesskey="3" title="">About Us</a></li>
-        <li><a href="#" accesskey="4" title="">Careers</a></li>
-        <li><a href="#" accesskey="5" title="">Contact Us</a></li>
+        <?php 
+          $pages = [
+            [
+              url => 'index.php',
+              title => 'Mainpage',
+            ],
+            [
+              url => 'page-forms.php',
+              title => 'Forms',
+            ],
+            [
+              url => 'page-strings.php',
+              title => 'Strings',
+            ],
+          ];
+
+          $cur_page_name = basename($_SERVER['PHP_SELF']);
+
+          foreach ($pages as $value) {
+            if ($value['url'] === $cur_page_name) {
+              echo '<li class="current_page_item">';
+            } else {
+              echo '<li>';
+            }
+
+            echo '<a href="'.$value['url'].'" title="">'.$value['title'].'</a></li>';
+          }
+
+
+         ?>
       </ul>
     </div>
     <div id="logo">
       <h1><a href="#">PHPTED</a></h1>
-      <span>The dark side</span> </div>
+      <span>The dark side</span></div>
   </div>
 </div>

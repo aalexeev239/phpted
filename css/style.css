@@ -324,7 +324,7 @@
 	#header-wrapper
 	{
 		overflow: hidden;
-		padding: 5em 0em;
+		padding: 3em 0em;
 		background: #8DCB89 url(../images/header.jpg) no-repeat center;
 		background-size: cover;
 	}
@@ -528,7 +528,7 @@
 	#copyright
 	{
 		overflow: hidden;
-		padding: 5em 0em;
+		padding: 3em 0em;
 		border-top: 1px solid rgba(255,255,255,0.08);
 		text-align: center;
 	}
