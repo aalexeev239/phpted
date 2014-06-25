@@ -18,7 +18,7 @@
               $string_array = explode(" ", $string);
 
               foreach ($string_array as $value) {
-                $value = trim(str_replace(['.', ';','\'', ','], [], $value));
+                $value = trim(str_replace(array('.', ';','\'', ','), array(), $value));
 
                 if (empty($value)) {
                   continue;

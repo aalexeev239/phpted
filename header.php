@@ -8,7 +8,7 @@
   <link href="css/fonts.css" rel="stylesheet" type="text/css" media="all" /> -->
   <link rel="stylesheet" href="css/style.css">
 
-  <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
+  <!--array([^[^]]*)><link href="default_ie6.css" rel="stylesheet" type="text/css" /><!array([^[^]]*)-->
 </head>
 <body>
   <div id="header-wrapper">
@@ -19,32 +19,32 @@
 
           mb_internal_encoding('utf-8');
 
-          $pages = [
-            [
+          $pages = array(
+            array(
               url => 'index.php',
               title => 'Mainpage',
-            ],
-            [
+            ),
+            array(
               url => 'page-forms.php',
               title => 'Forms',
-            ],
-            [
+            ),
+            array(
               url => 'page-strings.php',
               title => 'Strings',
-            ],
-            [
+            ),
+            array(
               url => 'page-cookies.php',
               title => 'Cookies',
-            ],
-            [
+            ),
+            array(
               url => 'page-sessions.php',
               title => 'Sessions',
-            ],
-            [
+            ),
+            array(
               url => 'page-markup.php',
               title => 'markup-template',
-            ],
-          ];
+            ),
+          );
 
           $cur_page_name = basename($_SERVER['PHP_SELF']);
 
@@ -63,7 +63,7 @@
       </ul>
     </div>
     <div id="logo">
-      <h1><a href="#">PHPTED</a></h1>
+      <h1><a href="index.php">PHPTED</a></h1>
       <span>The dark side</span></div>
   </div>
 </div>
