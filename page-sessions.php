@@ -42,7 +42,8 @@
 
             //если пришел запрос на удаление
             if (isset($_POST['delete'])) {
-              unset ($_SESSION['goods'][$_POST['delete']]);
+              $deleteKey = $_POST['delete'];
+              unset ($_SESSION['goods'][$deleteKey]);
             }
             //!isset($_SESSION['goods']) && 
             if (empty($_SESSION['goods'])) {
