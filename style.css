@@ -313,7 +313,7 @@
 		display: inline-block;
 		background: #8DCB89;
 		margin-right: 1em;
-		width: 40px;
+		w§idth: 40px;
 		height: 40px;
 		line-height: 40px;
 		border-radius: 20px;
@@ -329,6 +329,28 @@
 		line-height: 1.8em;
 		font-size: 1em;
 	}
+
+	button.btn-icon-delete {
+		margin-left: 10px;
+		display: inline-block;
+		/*padding: 0.2em;*/
+		cursor: pointer;
+		color: #3a3a3a;
+		-webkit-transition: color .4s;
+		transition: color .4s;
+		border: 0;
+		background-color: transparent;
+		font-size: 1.2em;
+	}
+
+	button.btn-icon-delete:hover {
+		color: #ff6816;
+	}
+
+	button.btn-icon-delete:active {
+		color: #fff;	
+		outline: none;
+	}		
 		
 /*********************************************************************************/
 /* Heading Titles                                                                */

@@ -41,6 +41,10 @@
               title => 'Sessions',
             ),
             array(
+              url => 'page-databases.php',
+              title => 'Databases',
+            ),
+            array(
               url => 'page-markup.php',
               title => 'markup-template',
             ),

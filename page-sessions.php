@@ -20,11 +20,11 @@
           <form action="page-sessions.php" method="post">
             <p class="form-group">
               <img src="https://api.fnkr.net/testimg/400x100/ff6816/FFF/?text=hellish samokat">
-              <label for="good">Самокат-хуекат:</label>
+              <label for="good">Самокат:</label>
               <input type="text" class="form-control"  name="good" id="good" value="test">
             </p>
             <p class="form-group">
-              <button type="submit" class="btn submit">Купить блеать</button>
+              <button type="submit" class="btn submit">Купить</button>
             </p>
           </form> 
           <?php 
@@ -40,11 +40,19 @@
               $_SESSION['goods'][] = $_POST['good'];
             }
 
-            if (!isset($_SESSION['goods'])) {
+            //если пришел запрос на удаление
+            if (isset($_POST['delete'])) {
+              unset ($_SESSION['goods'][$_POST['delete']]);
+            }
+            //!isset($_SESSION['goods']) && 
+            if (empty($_SESSION['goods'])) {
               echo "товаров нет";
             } else {
               foreach ($_SESSION['goods'] as $key => $value) {
-                echo $value.'<br>';
+                echo ' <form action="page-sessions.php" method="post">';
+                echo '<input type="hidden" name="delete" value="'.$key.'">';
+                echo $value.'<button type="submit" class="btn-icon-delete"><span class="icon icon-minus"></span></button><br>';
+                echo '</form>';
               }
             }
             ?>
