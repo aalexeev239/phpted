@@ -90,84 +90,91 @@
             
             //выбор нужной страницы
             $curPage = isset($_GET['action']) ? $_GET['action'] : 'default';
+            switch ($curPage) {
+             
+              case 'profile':
+                
+                if (isset($_GET['id'])) {
+                  $stmt = $pdo->prepare('
+                    SELECT * FROM patients WHERE id = :id
+                    ');
+                  $stmt->bindParam(':id', $_GET['id'], PDO::PARAM_INT);
+                  $stmt->execute();
+                  $patient = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($curPage === 'default') {
-              //выводим список пациентов
-              $stmt = $pdo->prepare('
-              SELECT id, name, insurance_num FROM patients ORDER BY insurance_num
-              ');
-              $stmt->execute();
-
-              $result = $stmt->fetchAll();
-
-              if(count($result)>0) {
-                echo '<table><tr><td>№ полиса</td><td>ФИО</td></tr>';
-                foreach ($result as $row) {
-                  echo '<tr><td>'.$row['insurance_num'].'</td><td><a class="link--databases" href="'.$cur_page_name.'?action=profile&id='.$row['id'].'">'.$row['name'].'</a></td></tr>';
-                }
-                echo ('</table>');
-              } else {
-                echo 'Список пациентов пуст';
-              }
-              echo 'Не нашли желаемого? <a class="link--databases" href="'.$cur_page_name.'?action=add">Добавьте</a> еще одного пациента!';
-            } 
-            else if ($curPage === 'profile') {
-              if (isset($_GET['id'])) {
-                $stmt = $pdo->prepare('
-                  SELECT * FROM patients WHERE id = :id
-                  ');
-                $stmt->bindParam(':id', $_GET['id'], PDO::PARAM_INT);
-                $stmt->execute();
-                $patient = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                if (!empty($patient)) {
-                  echo '<table>';
-                  foreach ($patient as $key => $value) {
-                    if ($key!=='id') {
-                      echo '<tr><td>'.$key.'</td><td>'.$value.'</td></tr>';
+                  if (!empty($patient)) {
+                    echo '<table>';
+                    foreach ($patient as $key => $value) {
+                      if ($key!=='id') {
+                        echo '<tr><td>'.$key.'</td><td>'.$value.'</td></tr>';
+                      }
                     }
+                    echo '</table>';
+                    echo '<p>Не понравился пациент? Не беда, <a class="link--databases" href="'.$cur_page_name.'">выберем другого</a></p>';
+                  } else {
+                    echo '<p>Этот пациент на учете в психдиспансере не состоит.<br>Но всегда можно <a class="link--databases" href="'.$cur_page_name.'">выбрать другого!</a></p>';
                   }
-                  echo '</table>';
-                  echo '<p>Не понравился пациент? Не беда, <a class="link--databases" href="'.$cur_page_name.'">выберем другого</a></p>';
                 } else {
-                  echo '<p>Этот пациент на учете в психдиспансере не состоит.<br>Но всегда можно <a class="link--databases" href="'.$cur_page_name.'">выбрать другого!</a></p>';
+                  echo '<p>Пациент не выбран. Вернитесь к <a class="link--databases" href="'.$cur_page_name.'">списку пациентов</a></p>';
                 }
-              } else {
-                echo '<p>Пациент не выбран. Вернитесь к <a class="link--databases" href="'.$cur_page_name.'">списку пациентов</a></p>';
-              }
-            }
-            else if ($curPage === 'add') {
-              ?>
-              <h3>Нужно больше больных!</h3>
 
-              <form action="<?php echo $cur_page_name; ?>" method="post">
-              <p class="form-group">
-                <label for="name">ФИО:</label>
-                <input type="text" class="form-control"  name="name" id="name" value="test">
-              </p>
-              <p class="form-group">
-                <label for="insurance_num">Номер полиса:</label>
-                <input type="text" class="form-control"  name="insurance_num" id="insurance_num" value="12345">
-              </p>
-              <p class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control"  name="email" id="email" value="test@djchsbch.com">
-              </p>
-              <p class="form-group">
-                <label>Пол:</label>
-                <label for="male"><input type="radio" name="sex" id="male" value="male">М</label>
-                <label for="female"><input type="radio" name="sex" id="female" value="female">Ж</label>
-              </p>
-              <p class="form-group">
-                <label for="history">История болезни:</label>
-                <textarea class="form-control"  name="history" id="history">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, blanditiis.</textarea>
-              </p>
-              <p class="form-group">
-                <button type="submit" class="btn submit">Отправить</button>
-              </p>
-            </form>
+                break;
+
+              case 'add':
+              ?>
+                <h3>Нужно больше больных!</h3>
+
+                <form action="<?php echo $cur_page_name; ?>" method="post">
+                <p class="form-group">
+                  <label for="name">ФИО:</label>
+                  <input type="text" class="form-control"  name="name" id="name" value="test">
+                </p>
+                <p class="form-group">
+                  <label for="insurance_num">Номер полиса:</label>
+                  <input type="text" class="form-control"  name="insurance_num" id="insurance_num" value="12345">
+                </p>
+                <p class="form-group">
+                  <label for="email">Email:</label>
+                  <input type="email" class="form-control"  name="email" id="email" value="test@djchsbch.com">
+                </p>
+                <p class="form-group">
+                  <label>Пол:</label>
+                  <label for="male"><input type="radio" name="sex" id="male" value="male">М</label>
+                  <label for="female"><input type="radio" name="sex" id="female" value="female">Ж</label>
+                </p>
+                <p class="form-group">
+                  <label for="history">История болезни:</label>
+                  <textarea class="form-control"  name="history" id="history">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, blanditiis.</textarea>
+                </p>
+                <p class="form-group">
+                  <button type="submit" class="btn submit">Отправить</button>
+                </p>
+              </form>
               <?php 
-              echo '<p>Назад, список пациентов <a class="link--databases" href="'.$cur_page_name.'">ждет нас!</a></p>';
+                echo '<p>Назад, список пациентов <a class="link--databases" href="'.$cur_page_name.'">ждет нас!</a></p>';
+                break;
+              
+              default:
+
+                //выводим список пациентов
+                $stmt = $pdo->prepare('
+                SELECT id, name, insurance_num FROM patients ORDER BY insurance_num
+                ');
+                $stmt->execute();
+
+                $result = $stmt->fetchAll();
+
+                if(count($result)>0) {
+                  echo '<table><tr><td>№ полиса</td><td>ФИО</td></tr>';
+                  foreach ($result as $row) {
+                    echo '<tr><td>'.$row['insurance_num'].'</td><td><a class="link--databases" href="'.$cur_page_name.'?action=profile&id='.$row['id'].'">'.$row['name'].'</a></td></tr>';
+                  }
+                  echo ('</table>');
+                } else {
+                  echo 'Список пациентов пуст';
+                }
+                echo 'Не нашли желаемого? <a class="link--databases" href="'.$cur_page_name.'?action=add">Добавьте</a> еще одного пациента!';
+                break;
             }
            ?>
         </div>
