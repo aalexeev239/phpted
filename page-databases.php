@@ -23,15 +23,13 @@
 
             //сначала заносим новые данные в таблицу
             if (!empty($_POST)) {
-              echo ('post');
               $p_name = isset($_POST['name']) ? $_POST['name'] : '';
               $p_insurance_num = isset($_POST['insurance_num']) ? $_POST['insurance_num'] : '';
               $p_email = isset($_POST['email']) ? $_POST['email'] : '';
               $p_sex = isset($_POST['sex']) ? $_POST['sex'] : '';
               $p_history = isset($_POST['history']) ? $_POST['history'] : '';
-              echo ('post1');
 
-              // сначала проверим нет ли такого пациента
+              // проверим нет ли такого пациента
               $stmt = $pdo->prepare('
               SELECT id FROM patients WHERE name = :name AND email = :email;
               ');
@@ -40,14 +38,11 @@
               $stmt->bindParam(':email', $p_email);
               $stmt->execute();
 
-              echo ('post2');
               // результат
               $result = $stmt->fetch(PDO::FETCH_ASSOC);
-              echo('postres');
 
               //запишем новые значения
               if (empty($result)) {
-                echo('resempty');
                 $stmt = $pdo->prepare('
                 INSERT INTO patients (name, insurance_num, email, sex, history)
                 VALUES (:name, :insurance_num, :email, :sex, :history);               
@@ -61,13 +56,11 @@
               } 
               // или обновим старые
               else {
-                echo('resNOTempty');
                 $stmt = $pdo->prepare('
                 UPDATE patients 
                 SET name=:name, insurance_num=:insurance_num, email=:email, sex=:sex, history=:history
                 WHERE id=:id
                 ');
-                echo ($result['id']);
                 $stmt->bindParam(':id', $result['id']);
                 $stmt->bindParam(':name', $p_name);
                 $stmt->bindParam(':email', $p_email);
