@@ -50,6 +50,20 @@
 	{
 		text-decoration: none;
 	}
+
+	a.link--databases {
+		color: #000;
+		-webkit-transition: all .2s;
+		transition: all .2s;
+	}
+
+	a.link--databases:hover {
+		color: #ff6816;
+	}
+
+	a.link--databases:active {
+		color: #fff;
+	}
 	
 
 	.container
@@ -183,6 +197,19 @@
 					border: 0;
 				}
 
+/*********************************************************************************/
+/* Table Style                                                                    */
+/*********************************************************************************/
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+td{
+	border: 1px solid #333;
+	padding: 8px 16px;
+}
 
 /*********************************************************************************/
 /* Image Style                                                                   */
