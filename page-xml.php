@@ -23,15 +23,13 @@
     $xml = new SimpleXMLElement($content);
     // var_dump($xml);
 
+    //так будем вставлять в базу
     $stmt = $pdo->prepare('
       INSERT INTO yandex_travel (title, link, description, pubDate, guid)
       VALUES (:title, :link, :description, :pubDate, :guid);               
     ');
 
-    $count = 0;
     foreach ($xml->channel->item as $item) {
-      // var_dump($item);      
-      // echo $item->title.'<br>';
 
       //проверим есть ли элемент в базе
       $stmt2 = $pdo->prepare('
@@ -40,7 +38,7 @@
       $stmt2->bindParam(':guid', $item->guid);
       $stmt2->execute();
 
-      //если не найден, то запись в базу
+      //если не найден, то запишем новость в базу
       if (!$handle = $stmt2->fetch()) {
         $dateTime = new DateTime($item->pubDate);
 
@@ -54,12 +52,21 @@
       }
     }
 
-    //выведем элементы
+    //выведем элементы на страницу
     $stmt = $pdo->prepare('
-      INSERT INTO yandex_travel (title, link, description, pubDate, guid)
-      VALUES (:title, :link, :description, :pubDate, :guid);               
+      SELECT title,link FROM yandex_travel ORDER BY pubDate DESC
     ');
+    $stmt->execute();
+
+    echo '<ol>';
+    //пока есть элементы, выводить ссылку на новость с правильным названием
+    while ($handle = $stmt->fetch()) {
+      echo '<li><a href="'.$handle['link'].'">'.$handle['title'].'</a></li>';
+    }
+    echo '</ol>';
+    
    ?>
+
    <!-- <a href="roma.php">Рома подскажи</a> -->
  </div>
 </div>
