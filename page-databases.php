@@ -8,8 +8,8 @@
       <div class="row">
         <div class="box1">
           <h2><span class="icon icon-pencil"></span>Таблички</h2>
+          
           <?php 
-
             try {
               $pdo = new PDO('mysql:host=127.0.0.1;dbname=poloklinnik;charset=utf8', 'root', 'root');
               $pdo->setAttribute(
@@ -88,8 +88,12 @@
               $stmt->execute();
             }
             
+           
+
+
             //выбор нужной страницы
             $curPage = isset($_GET['action']) ? $_GET['action'] : 'default';
+
             switch ($curPage) {
              
               case 'profile':
@@ -111,7 +115,8 @@
                     }
                     echo '</table>';
                     echo '<p>Не понравился пациент? Не беда, <a class="link--databases" href="'.$cur_page_name.'">выберем другого</a></p>';
-                  } else {
+                  } 
+                  else {
                     echo '<p>Этот пациент на учете в психдиспансере не состоит.<br>Но всегда можно <a class="link--databases" href="'.$cur_page_name.'">выбрать другого!</a></p>';
                   }
                 } else {

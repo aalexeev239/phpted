@@ -29,6 +29,10 @@
               title => 'Forms',
             ),
             array(
+              url => 'page-xml.php',
+              title => 'XML',
+            ),
+            array(
               url => 'page-strings.php',
               title => 'Strings',
             ),
@@ -43,6 +47,10 @@
             array(
               url => 'page-databases.php',
               title => 'Databases',
+            ),
+            array(
+              url => 'page-file.php',
+              title => 'Files',
             ),
             array(
               url => 'page-markup.php',
