@@ -23,25 +23,22 @@
     $xml = new SimpleXMLElement($content);
     // var_dump($xml);
 
+    $stmt = $pdo->prepare('
+      INSERT INTO yandex_travel (title, link, description, pubDate)
+      VALUES (:title, :link, :description, :pubDate);               
+    ');
+
     foreach ($xml->channel->item as $item) {
       // var_dump($item);      
       // echo $item->title.'<br>';
 
-      $stmt = $pdo->prepare('
-        INSERT INTO yandex_travel (title, link, description, pubDate)
-        VALUES (:title, :link, :description, :pubDate);               
-        ');
+      $dateTime = new DateTime($item->pubDate);
 
-      // $stmt->bindParam(':name', $p_name);
-      // $stmt->bindParam(':email', $p_email);
-      // $stmt->bindParam(':sex', $p_sex);
-      // $stmt->bindParam(':history', $p_history);
-      // $stmt->bindParam(':insurance_num', $p_insurance_num);
       $stmt->execute(array(
-        'title' => 'title',
-        'link' => 'link',
-        'description' => 'description',
-        'pubDate' => 'pubDate',
+        ':title' => $item->title,
+        ':link' => $item->link,
+        ':description' => $item->description,
+        ':pubDate' => $dateTime->format('Y-m-d h:i:s'),
         ));
     }
 
