@@ -24,8 +24,8 @@
     // var_dump($xml);
 
     $stmt = $pdo->prepare('
-      INSERT INTO yandex_travel (title, link, description, pubDate)
-      VALUES (:title, :link, :description, :pubDate);               
+      INSERT INTO yandex_travel (title, link, description, pubDate, guid)
+      VALUES (:title, :link, :description, :pubDate, :guid);               
     ');
 
     $count = 0;
@@ -33,21 +33,32 @@
       // var_dump($item);      
       // echo $item->title.'<br>';
 
-      //запись в базу
-      $dateTime = new DateTime($item->pubDate);
+      //проверим есть ли элемент в базе
+      $stmt2 = $pdo->prepare('
+      SELECT guid FROM yandex_travel WHERE guid=:guid
+      ');
+      $stmt2->bindParam(':guid', $item->guid);
+      $stmt2->execute();
 
-      $stmt->execute(array(
-        ':title' => $item->title,
-        ':link' => $item->link,
-        ':description' => $item->description,
-        ':pubDate' => $dateTime->format('Y-m-d h:i:s'),
-        ));
+      //если не найден, то запись в базу
+      if (!$handle = $stmt2->fetch()) {
+        $dateTime = new DateTime($item->pubDate);
 
-      //вывод на страницу
-      $count++;
-      echo $count.'). '.$item->title.'<br>';
+        $stmt->execute(array(
+          ':title' => $item->title,
+          ':link' => $item->link,
+          ':description' => $item->description,
+          ':pubDate' => $dateTime->format('Y-m-d h:i:s'),
+          ':guid' => $item->guid,
+          ));
+      }
     }
 
+    //выведем элементы
+    $stmt = $pdo->prepare('
+      INSERT INTO yandex_travel (title, link, description, pubDate, guid)
+      VALUES (:title, :link, :description, :pubDate, :guid);               
+    ');
    ?>
    <!-- <a href="roma.php">Рома подскажи</a> -->
  </div>
