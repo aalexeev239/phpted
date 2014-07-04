@@ -28,10 +28,12 @@
       VALUES (:title, :link, :description, :pubDate);               
     ');
 
+    $count = 0;
     foreach ($xml->channel->item as $item) {
       // var_dump($item);      
       // echo $item->title.'<br>';
 
+      //запись в базу
       $dateTime = new DateTime($item->pubDate);
 
       $stmt->execute(array(
@@ -40,6 +42,10 @@
         ':description' => $item->description,
         ':pubDate' => $dateTime->format('Y-m-d h:i:s'),
         ));
+
+      //вывод на страницу
+      $count++;
+      echo $count.'). '.$item->title.'<br>';
     }
 
    ?>
