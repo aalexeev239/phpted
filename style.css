@@ -31,6 +31,15 @@
 		padding: 0;
 		list-style: none;
 	}
+
+	ol.ol-page-xml {
+		list-style-type: decimal;
+		padding-left: 40px;
+	}
+
+	ol.ol-page-xml>li {
+		text-align: left;
+	}
 	
 	p
 	{

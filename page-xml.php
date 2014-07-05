@@ -23,23 +23,27 @@
     $xml = new SimpleXMLElement($content);
     // var_dump($xml);
 
+    //заранее подготовим все запросы, которые будем использовать в цикле
     //так будем вставлять в базу
     $stmt = $pdo->prepare('
       INSERT INTO yandex_travel (title, link, description, pubDate, guid)
       VALUES (:title, :link, :description, :pubDate, :guid);               
     ');
 
+    //проверим есть ли элемент в базе
+    $stmt2 = $pdo->prepare('
+      SELECT guid FROM yandex_travel WHERE guid=:guid
+    ');
+
     foreach ($xml->channel->item as $item) {
 
-      //проверим есть ли элемент в базе
-      $stmt2 = $pdo->prepare('
-      SELECT guid FROM yandex_travel WHERE guid=:guid
-      ');
       $stmt2->bindParam(':guid', $item->guid);
       $stmt2->execute();
 
       //если не найден, то запишем новость в базу
-      if (!$handle = $stmt2->fetch()) {
+      if (!$newsItem = $stmt2->fetch()) {
+        
+        //спешл формат для дат
         $dateTime = new DateTime($item->pubDate);
 
         $stmt->execute(array(
@@ -48,7 +52,7 @@
           ':description' => $item->description,
           ':pubDate' => $dateTime->format('Y-m-d h:i:s'),
           ':guid' => $item->guid,
-          ));
+        ));
       }
     }
 
@@ -58,13 +62,13 @@
     ');
     $stmt->execute();
 
-    echo '<ol>';
+    echo '<ol class="ol-page-xml">';
     //пока есть элементы, выводить ссылку на новость с правильным названием
-    while ($handle = $stmt->fetch()) {
-      echo '<li><a href="'.$handle['link'].'">'.$handle['title'].'</a></li>';
+    while ($newsItem = $stmt->fetch()) {
+      echo '<li><a href="'.$newsItem['link'].'">'.$newsItem['title'].'</a></li>';
     }
     echo '</ol>';
-    
+
    ?>
 
    <!-- <a href="roma.php">Рома подскажи</a> -->
